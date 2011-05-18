@@ -44,10 +44,12 @@ class Controller_Oauth extends Controller_App {
     * @return int
     */
    public function lookupConsumer($provider) {
-      $consumer = ORM::factory('consumer')->where('consumer_key', '=', $provider->consumer_key);
+      $consumer = ORM::factory('oauth_server_consumer')->where('consumer_key', '=', $provider->consumer_key);
       if($provider->consumer_key != $consumer->consumer_key) {
          return OAUTH_CONSUMER_KEY_UNKNOWN;
-      }
+      } else if($consumer->key_status != 0) {
+		return OAUTH_CONSUMER_KEY_REFUSED;
+	}
       $provider->consumer_secret = $consumer->consumer_secret;
       return OAUTH_OK;
    }
