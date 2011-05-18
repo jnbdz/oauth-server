@@ -18,10 +18,10 @@ class Helper_Oauthserver {
                 fclose($fp);
                 // in case /dev/urandom is reusing entropy from its pool, let's add a bit more entropy
                 $entropy .= uniqid(mt_rand(), true);
-                $hash = hash('sha256', $entropy);  // sha1 gives us a 40-byte hash
+                $hash = sha1($entropy); //hash('sha256', $entropy);  // sha1 gives us a 40-byte hash
                 // The first 30 bytes should be plenty for the consumer_key
                 // We use the last 10 for the shared secret
-                return array(substr($hash,0,64),substr($hash,44,20));
+                return array(substr($hash,0,30),substr($hash,30,10));
 
 	}
 

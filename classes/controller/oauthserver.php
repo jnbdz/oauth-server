@@ -101,7 +101,7 @@ class Controller_Oauth extends Controller_App {
       $token = Token_Model::create($this->provider->consumer_key);
       $token->save();
       // Build response with the authorization URL users should be sent to
-      echo 'login_url=https://'.Kohana::config('config.site_domain').
+      echo 'login_url=https://'.Kohana::config('oauth-server.site_domain').
            '/oauth/authorize&oauth_token='.$token->tok.
            '&oauth_token_secret='.$token->secret.
            '&oauth_callback_confirmed=true';
